@@ -113,7 +113,7 @@ using System.Reflection.Emit;
 //using Kingmaker.UI._ConsoleUI.GroupChanger;
 using Kingmaker.UI.ActionBar;
 using Owlcat.Runtime.Visual.RenderPipeline.RendererFeatures.FogOfWar;
-using TMPro;
+/* Whats this? *///using TMPro;
 using TurnBased.Controllers;
 using UnityEngine;
 using UnityEngine.Events;

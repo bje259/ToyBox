@@ -43,6 +43,8 @@ using Kingmaker.Utility;
 using ToyBox.Multiclass;
 using Alignment = Kingmaker.Enums.Alignment;
 using ModKit;
+using VisualAdjustments;
+using static VisualAdjustments.Settings;
 
 namespace ToyBox {
     public class PartyEditor {
@@ -54,8 +56,10 @@ namespace ToyBox {
             Buffs,
             Abilities,
             Spells,
+            Appearance,
             None,
         };
+        public static UnitEntityData staticunit;
         static ToggleChoice selectedToggle = ToggleChoice.None;
         static int selectedCharacterIndex = 0;
         static UnitEntityData charToAdd = null;
@@ -236,6 +240,11 @@ namespace ToyBox {
                     bool showAbilities = ch == selectedCharacter && selectedToggle == ToggleChoice.Abilities;
                     if (UI.DisclosureToggle("Abilities", ref showAbilities, 125)) {
                         if (showAbilities) { selectedCharacter = ch; selectedToggle = ToggleChoice.Abilities; }
+                        else { selectedToggle = ToggleChoice.None; }
+                    }
+                    bool showAppearance = ch == selectedCharacter && selectedToggle == ToggleChoice.Appearance;
+                    if (UI.DisclosureToggle("Appearance", ref showAppearance, 125)) {
+                        if (showAppearance) { selectedCharacter = ch; selectedToggle = ToggleChoice.Appearance; }
                         else { selectedToggle = ToggleChoice.None; }
                     }
                     UI.Space(10);
@@ -455,6 +464,62 @@ namespace ToyBox {
                     selectedCharacterIndex = characterList.IndexOf(selectedCharacter);
                 }
                 chIndex += 1;
+                staticunit = ch;
+                if(ch == selectedCharacter && selectedToggle == ToggleChoice.Appearance)
+                {
+                    try {
+                        var unitEntityData = selectedCharacter;
+                        Main.Log("");
+                        if (!Main.Enabled){return;}
+                        if (Game.Instance.Player.PartyCharacters != null) {
+                            VisualAdjustments.Settings.CharacterSettings characterSettings = Main.Csettings.GetCharacterSettings(unitEntityData);
+                           /// VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(unitEntityData);
+                             if (characterSettings == null) 
+                             {
+                                 characterSettings = new CharacterSettings();
+                                 characterSettings.characterName = unitEntityData.CharacterName;
+                                 VisualAdjustments.Main.settings.AddCharacterSettings(unitEntityData, characterSettings);
+                             }
+                             GUILayout.BeginHorizontal();
+                             GUILayout.Label(string.Format("{0}", unitEntityData.CharacterName), "box", GUILayout.Width(200f));
+                             characterSettings.showClassSelection = GUILayout.Toggle(characterSettings.showClassSelection, "Select Outfit", GUILayout.ExpandWidth(false));
+                             if (unitEntityData.Descriptor.Doll != null) 
+                             {
+                                 characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
+                             }
+                             else 
+                             {
+                                 characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
+                             }
+                             characterSettings.showEquipmentSelection = GUILayout.Toggle(characterSettings.showEquipmentSelection, "Select Equipment", GUILayout.ExpandWidth(false));
+                             characterSettings.showOverrideSelection = GUILayout.Toggle(characterSettings.showOverrideSelection, "Select Overrides", GUILayout.ExpandWidth(false));
+                             characterSettings.ReloadStuff = GUILayout.Toggle(characterSettings.ReloadStuff, "Reload", GUILayout.ExpandWidth(false));
+#if (DEBUG)
+                             characterSettings.showInfo = GUILayout.Toggle(characterSettings.showInfo, "Show Info", GUILayout.ExpandWidth(false));
+#endif
+                             GUILayout.EndHorizontal();
+                             if (characterSettings.ReloadStuff == true) {
+                                 CharacterManager.UpdateModel(unitEntityData.View);
+                             }
+                             if (characterSettings.showClassSelection) VisualAdjustments.Main.ChooseClassOutfit(characterSettings, unitEntityData);
+                             if (unitEntityData.Descriptor.Doll != null && characterSettings.showDollSelection) {
+                                 VisualAdjustments.Main.ChooseDoll(unitEntityData);
+                             }
+                             if (unitEntityData.Descriptor.Doll == null && characterSettings.showDollSelection) {
+                                 VisualAdjustments.Main.ChooseCompanionColor(characterSettings, unitEntityData);
+                             }
+                             if (characterSettings.showEquipmentSelection) VisualAdjustments.Main.ChooseEquipment(unitEntityData, characterSettings);
+                             if (characterSettings.showOverrideSelection) VisualAdjustments.Main.ChooseEquipmentOverride(unitEntityData, characterSettings);
+                             //#if (DEBUG)
+                             if (characterSettings.showInfo) InfoManager.ShowInfo(unitEntityData);
+                             //#endif*/
+                        }
+                            VisualAdjustments.Main.settings.rebuildCharacters = GUILayout.Toggle(VisualAdjustments.Main.settings.rebuildCharacters, "Rebuild character model on loadscreen (Fix visual gitches)");
+                    }
+                    catch (Exception e) {
+                        Main.Log(e.ToString() + " " + e.StackTrace);
+                    }
+                }
             }
             UI.Space(25);
             if (respecableCount > 0) {
