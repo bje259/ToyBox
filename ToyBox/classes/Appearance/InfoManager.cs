@@ -79,7 +79,7 @@ namespace VisualAdjustments
                 }
             }
         }
-        static void BuildLookup()
+        public static void BuildLookup()
         {
             m_lookup = new Dictionary<string, EquipmentEntityInfo>(); ;
             var races = BluePrintThing.GetBlueprints<BlueprintRace>();

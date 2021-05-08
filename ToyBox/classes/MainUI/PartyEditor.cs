@@ -468,11 +468,10 @@ namespace ToyBox {
                 if(ch == selectedCharacter && selectedToggle == ToggleChoice.Appearance)
                 {
                     try {
-                        var unitEntityData = selectedCharacter;
-                        Main.Log("");
                         if (!Main.Enabled){return;}
+                        var unitEntityData = selectedCharacter;
                         if (Game.Instance.Player.PartyCharacters != null) {
-                            VisualAdjustments.Settings.CharacterSettings characterSettings = Main.Csettings.GetCharacterSettings(unitEntityData);
+                            VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(unitEntityData);
                            /// VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(unitEntityData);
                              if (characterSettings == null) 
                              {
@@ -501,7 +500,7 @@ namespace ToyBox {
                              if (characterSettings.ReloadStuff == true) {
                                  CharacterManager.UpdateModel(unitEntityData.View);
                              }
-                             if (characterSettings.showClassSelection) VisualAdjustments.Main.ChooseClassOutfit(characterSettings, unitEntityData);
+                             if (characterSettings.showClassSelection){VisualAdjustments.Main.ChooseClassOutfit(characterSettings, unitEntityData);}
                              if (unitEntityData.Descriptor.Doll != null && characterSettings.showDollSelection) {
                                  VisualAdjustments.Main.ChooseDoll(unitEntityData);
                              }

@@ -67,7 +67,7 @@ namespace VisualAdjustments
         public static Dictionary<string, CharacterSettings> characterSettings = new Dictionary<string, CharacterSettings>();
         public override void Save(UnityModManager.ModEntry modEntry)
         {
-            var filepath = Path.Combine(modEntry.Path, "Settings2.json");
+            var filepath = Path.Combine(modEntry.Path, "Settings.json");
             try
             {
 
@@ -98,7 +98,7 @@ namespace VisualAdjustments
         }
         public static Settings Load(ModEntry modEntry)
         {
-            var filepath = Path.Combine(modEntry.Path, "Settings2.json");
+            var filepath = Path.Combine(modEntry.Path, "Settings.json");
             if (File.Exists(filepath))
             {
                 try

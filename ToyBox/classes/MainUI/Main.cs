@@ -52,7 +52,7 @@ namespace ToyBox {
         static string modId;
         public static UnityModManager.ModEntry modEntry = null;
         public static Settings settings;
-        public static VisualAdjustments.Settings Csettings;
+       /// public static VisualAdjustments.Settings Csettings;
         public static Mod multiclassMod;
         public static bool Enabled;
         public static bool freshlyLaunched = true;
@@ -72,7 +72,8 @@ namespace ToyBox {
                 modId = modEntry.Info.Id;
                 ModKit.Logger.modLogger = modEntry.Logger;
                 settings = Settings.Load<Settings>(modEntry);
-                Csettings = VisualAdjustments.Settings.Load(modEntry);
+               /// Csettings = VisualAdjustments.Settings.Load(modEntry);
+                VisualAdjustments.Main.settings = VisualAdjustments.Settings.Load(modEntry);
                 ModKit.Logger.modEntryPath = modEntry.Path;
 
                 HarmonyInstance = new Harmony(modEntry.Info.Id);
@@ -117,7 +118,8 @@ namespace ToyBox {
             caughtException = null;
         }
 
-        static void OnGUI(UnityModManager.ModEntry modEntry) {
+        static void OnGUI(UnityModManager.ModEntry modEntry) 
+            {
             Main.modEntry = modEntry;
             if (!Enabled) return;
             if (!IsInGame) {
@@ -159,6 +161,7 @@ namespace ToyBox {
 
         static void OnSaveGUI(UnityModManager.ModEntry modEntry) {
             settings.Save(modEntry);
+            VisualAdjustments.Main.settings.Save(modEntry);
         }
     }
 }
