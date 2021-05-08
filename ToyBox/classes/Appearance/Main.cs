@@ -19,6 +19,7 @@ using Kingmaker.Blueprints.Root;
 using Kingmaker.Utility;
 using Kingmaker.Blueprints.Classes;
 using HarmonyLib;
+using ModKit;
 
 namespace VisualAdjustments
 {
@@ -397,10 +398,10 @@ namespace VisualAdjustments
             var gender = unitEntityData.Gender;
             CustomizationOptions customizationOptions = gender != Gender.Male ? race.FemaleOptions : race.MaleOptions;
             ChooseRace(unitEntityData, doll);
-           // ChooseEEL(unitEntityData, doll, "Face", customizationOptions.Heads, doll.Head, (EquipmentEntityLink ee) => doll.SetHead(ee));
-           // ChooseEEL(unitEntityData, doll, "Hair", customizationOptions.Hair, doll.Hair, (EquipmentEntityLink ee) => doll.SetHair(ee));
-          //  if (customizationOptions.Beards.Length > 0) ChooseEEL(unitEntityData, doll, "Beards", customizationOptions.Beards, doll.Beard, (EquipmentEntityLink ee) => doll.SetBeard(ee));
-          //  if(customizationOptions.Horns.Length > 0) ChooseEEL(unitEntityData, doll, "Horns", customizationOptions.Horns, doll.Horn, (EquipmentEntityLink ee) => doll.SetHorn(ee));
+            ChooseEEL(unitEntityData, doll, "Face", customizationOptions.Heads, doll.Head.m_Link, (EquipmentEntityLink ee) => doll.SetHead(ee));
+            ChooseEEL(unitEntityData, doll, "Hair", customizationOptions.Hair, doll.Hair.m_Link, (EquipmentEntityLink ee) => doll.SetHair(ee));
+            if (customizationOptions.Beards.Length > 0) ChooseEEL(unitEntityData, doll, "Beards", customizationOptions.Beards, doll.Beard.m_Link, (EquipmentEntityLink ee) => doll.SetBeard(ee));
+            if(customizationOptions.Horns.Length > 0) ChooseEEL(unitEntityData, doll, "Horns", customizationOptions.Horns, doll.Horn.m_Link, (EquipmentEntityLink ee) => doll.SetHorn(ee));
             ChooseRamp(unitEntityData, doll, "Hair Color", doll.GetHairRamps(), doll.HairRampIndex, (int index) => doll.SetHairColor(index));
             ChooseRamp(unitEntityData, doll, "Skin Color", doll.GetSkinRamps(), doll.SkinRampIndex, (int index) => doll.SetSkinColor(index));
             ChooseRamp(unitEntityData, doll, "Horn Color", doll.GetHornsRamps(), doll.HornsRampIndex, (int index) => doll.SetHornsColor(index));
@@ -519,7 +520,6 @@ namespace VisualAdjustments
             ChooseToggle("Hide Wings", ref characterSettings.hideWings, onHideBuff);
             ChooseToggle("Hide Horns", ref characterSettings.hideHorns, onHideEquipment);
             ChooseToggle("Hide Tail", ref characterSettings.hideTail, onHideEquipment);
-            
         }
 
         /*

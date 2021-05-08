@@ -128,6 +128,9 @@
     <Reference Include="Assembly-CSharp_public">
       <HintPath>..\lib\Assembly-CSharp_public.dll</HintPath>
     </Reference>
+    <Reference Include="Aze.Publicise.MSBuild.Task">
+      <HintPath>..\..\RespecModRepo\RespecWrath\packages\Aze.Publicise.MSBuild.Task.1.0.0\tasks\net46\Aze.Publicise.MSBuild.Task.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Microsoft.CSharp" />
