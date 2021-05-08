@@ -68,7 +68,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return true;
+                    if (!ToyBox.Main.Enabled) return true;
                     if (!__instance.IsPlayerFaction) return true;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance);
                     if (characterSettings == null) return true;
@@ -110,7 +110,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (__instance.EntityData == null) return;
                     if (!__instance.EntityData.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.EntityData);
@@ -146,7 +146,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.EntityData.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.EntityData);
                     if (characterSettings == null) return;
@@ -229,7 +229,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (__instance.EntityData == null) return;
                     if (!__instance.EntityData.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.EntityData);

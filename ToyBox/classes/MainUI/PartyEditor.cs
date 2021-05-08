@@ -467,57 +467,40 @@ namespace ToyBox {
                 staticunit = ch;
                 if(ch == selectedCharacter && selectedToggle == ToggleChoice.Appearance)
                 {
-                    try {
-                        if (!Main.Enabled){return;}
-                        var unitEntityData = selectedCharacter;
-                        if (Game.Instance.Player.PartyCharacters != null) {
-                            VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(unitEntityData);
-                           /// VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(unitEntityData);
-                             if (characterSettings == null) 
-                             {
-                                 characterSettings = new CharacterSettings();
-                                 characterSettings.characterName = unitEntityData.CharacterName;
-                                 VisualAdjustments.Main.settings.AddCharacterSettings(unitEntityData, characterSettings);
-                             }
-                             GUILayout.BeginHorizontal();
-                             GUILayout.Label(string.Format("{0}", unitEntityData.CharacterName), "box", GUILayout.Width(200f));
-                             characterSettings.showClassSelection = GUILayout.Toggle(characterSettings.showClassSelection, "Select Outfit", GUILayout.ExpandWidth(false));
-                             if (unitEntityData.Descriptor.Doll != null) 
-                             {
-                                 characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
-                             }
-                             else 
-                             {
-                                 characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
-                             }
-                             characterSettings.showEquipmentSelection = GUILayout.Toggle(characterSettings.showEquipmentSelection, "Select Equipment", GUILayout.ExpandWidth(false));
-                             characterSettings.showOverrideSelection = GUILayout.Toggle(characterSettings.showOverrideSelection, "Select Overrides", GUILayout.ExpandWidth(false));
-                             characterSettings.ReloadStuff = GUILayout.Toggle(characterSettings.ReloadStuff, "Reload", GUILayout.ExpandWidth(false));
-#if (DEBUG)
-                             characterSettings.showInfo = GUILayout.Toggle(characterSettings.showInfo, "Show Info", GUILayout.ExpandWidth(false));
-#endif
-                             GUILayout.EndHorizontal();
-                             if (characterSettings.ReloadStuff == true) {
-                                 CharacterManager.UpdateModel(unitEntityData.View);
-                             }
-                             if (characterSettings.showClassSelection){VisualAdjustments.Main.ChooseClassOutfit(characterSettings, unitEntityData);}
-                             if (unitEntityData.Descriptor.Doll != null && characterSettings.showDollSelection) {
-                                 VisualAdjustments.Main.ChooseDoll(unitEntityData);
-                             }
-                             if (unitEntityData.Descriptor.Doll == null && characterSettings.showDollSelection) {
-                                 VisualAdjustments.Main.ChooseCompanionColor(characterSettings, unitEntityData);
-                             }
-                             if (characterSettings.showEquipmentSelection) VisualAdjustments.Main.ChooseEquipment(unitEntityData, characterSettings);
-                             if (characterSettings.showOverrideSelection) VisualAdjustments.Main.ChooseEquipmentOverride(unitEntityData, characterSettings);
-                             //#if (DEBUG)
-                             if (characterSettings.showInfo) InfoManager.ShowInfo(unitEntityData);
-                             //#endif*/
+                  try 
+                  {
+                        VisualAdjustments.Settings.CharacterSettings characterSettings = VisualAdjustments.Main.settings.GetCharacterSettings(selectedCharacter);
+                        if (characterSettings == null) {
+                            characterSettings = new CharacterSettings();
+                            characterSettings.characterName = selectedCharacter.CharacterName;
+                           VisualAdjustments.Main.settings.AddCharacterSettings(selectedCharacter, characterSettings);
                         }
-                            VisualAdjustments.Main.settings.rebuildCharacters = GUILayout.Toggle(VisualAdjustments.Main.settings.rebuildCharacters, "Rebuild character model on loadscreen (Fix visual gitches)");
-                    }
-                    catch (Exception e) {
-                        Main.Log(e.ToString() + " " + e.StackTrace);
-                    }
+                        GUILayout.BeginHorizontal();
+                        ///GUILayout.Label(string.Format("{0}", selectedCharacter.CharacterName), "box", GUILayout.Width(200f));
+                       ///characterSettings.showClassSelection = GUILayout.Toggle(characterSettings.showClassSelection, "Select Outfit", GUILayout.ExpandWidth(false));
+                        UI.DisclosureToggle("Select Outfit", ref characterSettings.showClassSelection);
+                        if (selectedCharacter.Descriptor.Doll != null) {
+                           /// characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
+                            UI.DisclosureToggle("Select Doll", ref characterSettings.showDollSelection);
+                        }
+                        else {
+                           /// characterSettings.showDollSelection = GUILayout.Toggle(characterSettings.showDollSelection, "Select Doll", GUILayout.ExpandWidth(false));
+                            UI.DisclosureToggle("Select Doll", ref characterSettings.showDollSelection);
+                        }
+                        UI.DisclosureToggle("Select Equipment", ref characterSettings.showEquipmentSelection);
+                        ///characterSettings.showEquipmentSelection = GUILayout.Toggle(characterSettings.showEquipmentSelection, "Select Equipment", GUILayout.ExpandWidth(false));
+                        UI.DisclosureToggle("Select Overrides", ref characterSettings.showOverrideSelection);
+                        ///characterSettings.showOverrideSelection = GUILayout.Toggle(characterSettings.showOverrideSelection, "Select Overrides", GUILayout.ExpandWidth(false));
+                        UI.DisclosureToggle("Show Info", ref characterSettings.showInfo);
+                       ///characterSettings.ReloadStuff = GUILayout.Toggle(characterSettings.ReloadStuff, "Reload", GUILayout.ExpandWidth(false));
+#if (DEBUG)
+                        ///characterSettings.showInfo = GUILayout.Toggle(characterSettings.showInfo, "Show Info", GUILayout.ExpandWidth(false));
+#endif
+                        GUILayout.EndHorizontal();
+                        VisualAdjustments.Main.VisualUI(selectedCharacter, characterSettings);
+                  }
+                  catch(Exception e)
+                  { Main.Log(e.ToString()); }
                 }
             }
             UI.Space(25);

@@ -19,7 +19,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.Owner.IsPlayerFaction) return;
                     Settings.CharacterSettings characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return;
@@ -51,7 +51,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.Owner.IsPlayerFaction) return;
                     Settings.CharacterSettings characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return;
@@ -97,7 +97,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return true;
+                    if (!ToyBox.Main.Enabled) return true;
                     if (!__instance.Owner.IsPlayerFaction) return true;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return true;
@@ -132,7 +132,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.Owner.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return;
@@ -161,7 +161,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.Owner.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return;
@@ -190,7 +190,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     if (!__instance.Owner.IsPlayerFaction) return;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.Owner);
                     if (characterSettings == null) return;

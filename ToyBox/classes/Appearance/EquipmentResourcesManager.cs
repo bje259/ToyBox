@@ -39,12 +39,18 @@ namespace VisualAdjustments
                 return m_Helm;
             }
         }
-        public static UnorderedList<BlueprintRef, string> Cloak
-        {
+        public static UnorderedList<BlueprintRef, string> Glasses {
+            get {
+                if (!loaded) Init();
+                return m_Glasses;
+            }
+        }
+        public static UnorderedList<BlueprintRef, string> Shirt 
+            {
             get
             {
                 if (!loaded) Init();
-                return m_Cloak;
+                return m_Shirt;
             }
         }
         public static UnorderedList<BlueprintRef, string> Armor
@@ -118,7 +124,8 @@ namespace VisualAdjustments
             }
         }
         private static UnorderedList<BlueprintRef, string> m_Helm = new UnorderedList<BlueprintRef, string>();
-        private static UnorderedList<BlueprintRef, string> m_Cloak = new UnorderedList<BlueprintRef, string>();
+        private static UnorderedList<BlueprintRef, string> m_Shirt = new UnorderedList<BlueprintRef, string>();
+        private static UnorderedList<BlueprintRef, string> m_Glasses = new UnorderedList<BlueprintRef, string>();
         private static UnorderedList<BlueprintRef, string> m_Armor = new UnorderedList<BlueprintRef, string>();
         private static UnorderedList<BlueprintRef, string> m_Bracers = new UnorderedList<BlueprintRef, string>();
         private static UnorderedList<BlueprintRef, string> m_Gloves = new UnorderedList<BlueprintRef, string>();
@@ -137,13 +144,17 @@ namespace VisualAdjustments
             {
                 switch (bp.ItemType)
                 {
+                    case ItemType.Glasses:
+                        if (m_Helm.ContainsKey(bp.EquipmentEntity.AssetGuid)) break;
+                        m_Glasses[bp.EquipmentEntity.AssetGuid] = bp.EquipmentEntity.name;
+                        break;
                     case ItemType.Head:
                         if (m_Helm.ContainsKey(bp.EquipmentEntity.AssetGuid)) break;
                         m_Helm[bp.EquipmentEntity.AssetGuid] = bp.EquipmentEntity.name;
                         break;
-                    case ItemType.Shoulders:
-                        if (m_Cloak.ContainsKey(bp.EquipmentEntity.AssetGuid)) break;
-                        m_Cloak[bp.EquipmentEntity.AssetGuid] = bp.EquipmentEntity.name;
+                    case ItemType.Shirt:
+                        if (m_Shirt.ContainsKey(bp.EquipmentEntity.AssetGuid)) break;
+                        m_Shirt[bp.EquipmentEntity.AssetGuid] = bp.EquipmentEntity.name;
                         break;
                     case ItemType.Armor:
                         if (m_Armor.ContainsKey(bp.EquipmentEntity.AssetGuid)) break;

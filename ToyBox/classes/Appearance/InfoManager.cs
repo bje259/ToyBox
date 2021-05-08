@@ -79,7 +79,7 @@ namespace VisualAdjustments
                 }
             }
         }
-        public static void BuildLookup()
+        static void BuildLookup()
         {
             m_lookup = new Dictionary<string, EquipmentEntityInfo>(); ;
             var races = BluePrintThing.GetBlueprints<BlueprintRace>();
@@ -131,18 +131,18 @@ namespace VisualAdjustments
             public static void ShowInfo(UnitEntityData unitEntityData)
                 {;
                     GUILayout.BeginHorizontal();
-                    if (GUILayout.Button("Rebuild Character"))
+                    if (GUILayout.Button("Rebuild Character",GUILayout.Width(175f)))
                     {
                         CharacterManager.RebuildCharacter(unitEntityData);
                     }
-                    if (GUILayout.Button("Rebuild Outfit"))
+                    if (GUILayout.Button("Rebuild Outfit",GUILayout.Width(175f)))
                     {
                        var bakedCharacter = unitEntityData.View.CharacterAvatar.BakedCharacter;
                        unitEntityData.View.CharacterAvatar.BakedCharacter = null;
                         unitEntityData.View.CharacterAvatar.RebuildOutfit();
                         unitEntityData.View.CharacterAvatar.BakedCharacter = bakedCharacter;
                     }
-                    if (GUILayout.Button("Update Class Equipment"))
+                    if (GUILayout.Button("Update Class Equipment",GUILayout.Width(175f)))
                     {
                         var bakedCharacter = unitEntityData.View.CharacterAvatar.BakedCharacter;
                         unitEntityData.View.CharacterAvatar.BakedCharacter = null;
@@ -152,24 +152,24 @@ namespace VisualAdjustments
                         unitEntityData.Descriptor.ForcceUseClassEquipment = useClassEquipment;
                         unitEntityData.View.CharacterAvatar.BakedCharacter = bakedCharacter;
                     }
-                    if (GUILayout.Button("Update Body Equipment"))
+                    if (GUILayout.Button("Update Body Equipment",GUILayout.Width(175f)))
                     {
                         var bakedCharacter = unitEntityData.View.CharacterAvatar.BakedCharacter;
                         unitEntityData.View.CharacterAvatar.BakedCharacter = null;
                         unitEntityData.View.UpdateBodyEquipmentModel();
                         unitEntityData.View.CharacterAvatar.BakedCharacter = bakedCharacter;
                     }
-                    if (GUILayout.Button("Update Model"))
+                    if (GUILayout.Button("Update Model",GUILayout.Width(175f)))
                     {
                       CharacterManager.UpdateModel(unitEntityData.View);
                     }
-                    if (GUILayout.Button("Update HandsEquipment"))
+                    if (GUILayout.Button("Update HandsEquipment",GUILayout.Width(175f)))
                     {
                         unitEntityData.View.HandsEquipment.UpdateAll();
                     }
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
-                    if (GUILayout.Button("Toggle Stance"))
+                    if (GUILayout.Button("Toggle Stance",GUILayout.Width(175f)))
                     {
                         unitEntityData.View.HandsEquipment.ForceSwitch(!unitEntityData.View.HandsEquipment.InCombat);
                     }
@@ -191,13 +191,13 @@ namespace VisualAdjustments
                             null;
                     if(message != null) GUILayout.Label(message);
                     GUILayout.BeginHorizontal();
-                    showCharacter = GUILayout.Toggle(showCharacter, "Show Character");
-                    showWeapons = GUILayout.Toggle(showWeapons, "Show Weapons");
-                    showDoll = GUILayout.Toggle(showDoll, "Show Doll");
-                    showBuffs = GUILayout.Toggle(showBuffs, "Show Buffs");
-                    showFx = GUILayout.Toggle(showFx, "Show FX");
-                    showPortrait = GUILayout.Toggle(showPortrait, "Show Portrait");
-                    showAsks = GUILayout.Toggle(showAsks, "Show Asks");
+                    showCharacter = GUILayout.Toggle(showCharacter, "Show Character",GUILayout.Width(175f));
+                    showWeapons = GUILayout.Toggle(showWeapons, "Show Weapons",GUILayout.Width(175f));
+                    showDoll = GUILayout.Toggle(showDoll, "Show Doll",GUILayout.Width(175f));
+                    showBuffs = GUILayout.Toggle(showBuffs, "Show Buffs",GUILayout.Width(175f));
+                    showFx = GUILayout.Toggle(showFx, "Show FX",GUILayout.Width(175f));
+                    showPortrait = GUILayout.Toggle(showPortrait, "Show Portrait", GUILayout.Width(175f));
+                    showAsks = GUILayout.Toggle(showAsks, "Show Asks", GUILayout.Width(175f));
 
                     GUILayout.EndHorizontal();
                     if (showCharacter) ShowCharacterInfo(unitEntityData);
@@ -299,7 +299,7 @@ namespace VisualAdjustments
         {
             m_OrphanedKingmakerEquipment = new UnorderedList<string, string>();
             var itemLinks = EquipmentResourcesManager.Helm.Keys
-                            .Concat(EquipmentResourcesManager.Cloak.Keys)
+                            .Concat(EquipmentResourcesManager.Shirt.Keys)
                             .Concat(EquipmentResourcesManager.Armor.Keys)
                             .Concat(EquipmentResourcesManager.Bracers.Keys)
                             .Concat(EquipmentResourcesManager.Gloves.Keys)

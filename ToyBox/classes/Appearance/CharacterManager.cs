@@ -294,7 +294,7 @@ namespace VisualAdjustments
                             }
                         }
                     }
-                    if (characterSettings.hideClassCloak || characterSettings.overrideCloak != null)
+                   /* if (characterSettings.hideClassCloak || characterSettings.overrideCloak != null)
                     {
                         foreach (var ee in view.CharacterAvatar.EquipmentEntities.ToArray())
                         {
@@ -307,7 +307,7 @@ namespace VisualAdjustments
                                 dirty = true;
                             }
                         }
-                    }
+                    }*/
                     if (characterSettings.hideCap)
                     {
                         foreach (var ee in view.CharacterAvatar.EquipmentEntities.ToArray())
@@ -327,7 +327,8 @@ namespace VisualAdjustments
                             characterSettings.overrideHelm = null;
                         }
                     }
-                    /*            if (characterSettings.overrideCloak != null && !characterSettings.hideItemCloak)
+                    /*            if (characterSettings.overrideCloak
+                     *            != null && !characterSettings.hideItemCloak)
                                 {
                                     if (!OverrideEquipment(view, view.EntityData.Body.Shoulders, characterSettings.overrideCloak, ref dirty))
                                     {
@@ -362,6 +363,20 @@ namespace VisualAdjustments
                             characterSettings.overrideBoots = null;
                         }
                     }
+                    if (characterSettings.overrideGlasses != null && !characterSettings.hideGlasses)
+                    {
+                        if (!OverrideEquipment(view, view.EntityData.Body.Glasses, characterSettings.overrideGlasses, ref dirty))
+                        {
+                            characterSettings.overrideGlasses = null;
+                        }
+                    }
+                    if (characterSettings.overrideShirt != null && !characterSettings.hideShirt)
+                    {
+                        if (!OverrideEquipment(view, view.EntityData.Body.Shirt, characterSettings.overrideShirt, ref dirty))
+                        {
+                            characterSettings.overrideShirt = null;
+                        }
+                    }
                     if (characterSettings.overrideTattoo != null)
                     {
                         foreach (var assetId in EquipmentResourcesManager.Tattoos.Keys)
@@ -390,7 +405,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     UpdateModel(__instance);
                 }
                 catch (Exception ex)
@@ -411,8 +426,8 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
-///                 UpdateModel(__instance);
+                    if (!ToyBox.Main.Enabled) return;
+                UpdateModel(__instance);
                 }
                 catch (Exception ex)
                 {
@@ -434,7 +449,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return;
+                    if (!ToyBox.Main.Enabled) return;
                     UpdateModel(__instance);
                 }
                 catch (Exception ex)
@@ -450,7 +465,7 @@ namespace VisualAdjustments
             {
                 try
                 {
-                    if (!Main.enabled) return true;
+                    if (!ToyBox.Main.Enabled) return true;
                     if (disableEquipmentClassPatch) return true;
                     if (!__instance.Owner.IsPlayerFaction) return true;
                     var characterSettings = Main.settings.GetCharacterSettings(__instance.Owner.Unit);
@@ -551,7 +566,7 @@ namespace VisualAdjustments
             var race = blueprintRace?.RaceId ?? Race.Human;
             var gender = unit.Gender;
             TryPreloadKEE(characterSettings.overrideHelm, gender, race);
-            TryPreloadKEE(characterSettings.overrideCloak, gender, race);
+            TryPreloadKEE(characterSettings.overrideShirt, gender, race);
             TryPreloadKEE(characterSettings.overrideArmor, gender, race);
             TryPreloadKEE(characterSettings.overrideBracers, gender, race);
             TryPreloadKEE(characterSettings.overrideGloves, gender, race);
@@ -596,7 +611,7 @@ namespace VisualAdjustments
            {
                try
                {
-                   if (!Main.enabled) return;
+                   if (!ToyBox.Main.Enabled) return;
                    if (!Main.settings.rebuildCharacters) return;
                    Main.Log("Rebuilding characters");
                    foreach (var character in Game.Instance.Player.Party)

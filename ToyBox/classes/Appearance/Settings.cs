@@ -34,10 +34,13 @@ namespace VisualAdjustments
             public bool hideWeapons = false;
             public bool hideBeltSlots = false;
             public bool hideQuiver = false;
+            public bool hideGlasses = false;
+            public bool hideShirt = false;
             public bool ReloadStuff = false;
 
             public BlueprintRef overrideHelm = null;
-            public BlueprintRef overrideCloak = null;
+            public BlueprintRef overrideShirt = null;
+            public BlueprintRef overrideGlasses = null;
             public BlueprintRef overrideArmor = null;
             public BlueprintRef overrideBracers = null;
             public BlueprintRef overrideGloves = null;
@@ -64,7 +67,7 @@ namespace VisualAdjustments
             public int companionSecondary = -1;
         }
         [JsonProperty]
-        public static Dictionary<string, CharacterSettings> characterSettings = new Dictionary<string, CharacterSettings>();
+        private Dictionary<string, CharacterSettings> characterSettings = new Dictionary<string, CharacterSettings>();
         public override void Save(UnityModManager.ModEntry modEntry)
         {
             var filepath = Path.Combine(modEntry.Path, "Settings.json");
