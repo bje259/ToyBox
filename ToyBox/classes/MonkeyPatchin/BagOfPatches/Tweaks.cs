@@ -58,6 +58,7 @@ namespace ToyBox.BagOfPatches {
         private static readonly BlueprintGuid rage_blood = BlueprintGuid.Parse("e3a0056eedac7754ca9a50603ba05177");
         private static readonly BlueprintGuid rage_focused = BlueprintGuid.Parse("eccb3f963b3f425dac1f5f384927c3cc");
         private static readonly BlueprintGuid rage_demon = BlueprintGuid.Parse("260daa5144194a8ab5117ff568b680f5");
+        private static readonly BlueprintGuid aeon_bane = BlueprintGuid.Parse("67fb31f553f2bb14bbfae0b1040169f1");
 
         //     private static bool CanCopySpell([NotNull] BlueprintAbility spell, [NotNull] Spellbook spellbook) => spellbook.Blueprint.CanCopyScrolls && !spellbook.IsKnown(spell) && spellbook.Blueprint.SpellList.Contains(spell);
 
@@ -204,7 +205,7 @@ namespace ToyBox.BagOfPatches {
                                 if (ability.Blueprint.AssetGuid == rage_demon && ability.Data.IsAvailableForCast) {
                                     Kingmaker.RuleSystem.Rulebook.Trigger(new RuleCastSpell(ability.Data, unit));
                                     ability.Data.Spend();
-                                    flag = false; // if demon rage is active, we skip the normal rage checks
+                                    //flag = false; // if demon rage is active, we skip the normal rage checks
                                     break;
                                 }
                             }
@@ -213,7 +214,8 @@ namespace ToyBox.BagOfPatches {
                             foreach (var activatable in unit.ActivatableAbilities) {
                                 if (activatable.Blueprint.AssetGuid == rage_barbarian
                                     || activatable.Blueprint.AssetGuid == rage_blood
-                                    || activatable.Blueprint.AssetGuid == rage_focused) {
+                                    || activatable.Blueprint.AssetGuid == rage_focused
+                                    || activatable.Blueprint.AssetGuid == aeon_bane) {
                                     activatable.IsOn = true;
                                     break;
                                 }
