@@ -366,3 +366,5 @@ MigrationBackup/
 FodyWeavers.xsd
 lib/UnityModManager_public.dll
 lib/UnityModManager_public.hash
+lib/UnityModManager_public.dll
+lib/UnityModManager_public.hash
