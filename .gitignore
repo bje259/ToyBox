@@ -364,3 +364,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+lib/UnityModManager_public.dll
+lib/UnityModManager_public.hash
