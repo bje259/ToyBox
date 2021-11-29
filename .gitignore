@@ -368,3 +368,4 @@ lib/UnityModManager_public.dll
 lib/UnityModManager_public.hash
 lib/UnityModManager_public.dll
 lib/UnityModManager_public.hash
+*.dll
