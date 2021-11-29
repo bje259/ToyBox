@@ -369,3 +369,5 @@ lib/UnityModManager_public.hash
 lib/UnityModManager_public.dll
 lib/UnityModManager_public.hash
 *.dll
+lib/Assembly-CSharp_public.hash
+lib/Owlcat.Runtime.UI_public.hash
