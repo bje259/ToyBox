@@ -113,7 +113,7 @@ namespace ToyBox {
             Tweaks.UnitEntityData_CanRollPerception_Extension.TriggerReroll = true;
         }
         public static void RemoveAllBuffs() {
-            foreach (var target in Game.Instance.Player.Party) {
+            foreach (var target in Game.Instance.Player.PartyAndPets) {
                 foreach (var buff in new List<Buff>(target.Descriptor.Buffs.Enumerable)) {
                     target.Descriptor.RemoveFact(buff);
                 }

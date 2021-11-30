@@ -59,6 +59,7 @@ namespace ToyBox.BagOfPatches {
         private static readonly BlueprintGuid rage_focused = BlueprintGuid.Parse("eccb3f963b3f425dac1f5f384927c3cc");
         private static readonly BlueprintGuid rage_demon = BlueprintGuid.Parse("260daa5144194a8ab5117ff568b680f5");
         private static readonly BlueprintGuid aeon_bane = BlueprintGuid.Parse("67fb31f553f2bb14bbfae0b1040169f1");
+        private static readonly BlueprintGuid rage_demon_activatable = BlueprintGuid.Parse("0999f99d6157e5c4888f4cfe2d1ce9d6");
 
         //     private static bool CanCopySpell([NotNull] BlueprintAbility spell, [NotNull] Spellbook spellbook) => spellbook.Blueprint.CanCopyScrolls && !spellbook.IsKnown(spell) && spellbook.Blueprint.SpellList.Contains(spell);
 
@@ -200,24 +201,42 @@ namespace ToyBox.BagOfPatches {
                 if (inCombat && (settings.toggleEnterCombatAutoRage || settings.toggleEnterCombatAutoRage)) {
                     foreach (var unit in Game.Instance.Player.Party) {
                         var flag = true;
-                        if (settings.toggleEnterCombatAutoRageDemon) { // we prefer demon rage, as it's more powerful
+                        /*if (settings.toggleEnterCombatAutoRageDemon) { // we prefer demon rage, as it's more powerful
                             foreach (var ability in unit.Abilities) {
-                                if (ability.Blueprint.AssetGuid == rage_demon && ability.Data.IsAvailableForCast) {
+                                if ((ability.Blueprint.AssetGuid == rage_demon || ability.Blueprint.AssetGuid == rage_demon_activatable) && ability.Data.IsAvailableForCast) {
                                     Kingmaker.RuleSystem.Rulebook.Trigger(new RuleCastSpell(ability.Data, unit));
                                     ability.Data.Spend();
                                     //flag = false; // if demon rage is active, we skip the normal rage checks
-                                    break;
+                                    //break;
+                                }
+                            }
+                        }*/
+                        if (settings.toggleEnterCombatAutoRageDemon) { // we prefer demon rage, as it's more powerful
+                            foreach (var activatable in unit.ActivatableAbilities) {
+                                if ((activatable.Blueprint.AssetGuid == rage_demon || activatable.Blueprint.AssetGuid == rage_demon_activatable)) {
+                                    //Kingmaker.RuleSystem.Rulebook.Trigger(new RuleCastSpell(ability.Data, unit));
+                                    activatable.IsOn = true;
+                                    //flag = false; // if demon rage is active, we skip the normal rage checks
+                                    //break;
                                 }
                             }
                         }
                         if (flag && settings.toggleEnterCombatAutoRage) {
                             foreach (var activatable in unit.ActivatableAbilities) {
                                 if (activatable.Blueprint.AssetGuid == rage_barbarian
-                                    || activatable.Blueprint.AssetGuid == rage_blood
+                                    || activatable.Blueprint.AssetGuid == rage_demon_activatable
                                     || activatable.Blueprint.AssetGuid == rage_focused
-                                    || activatable.Blueprint.AssetGuid == aeon_bane) {
+                                    || activatable.Blueprint.AssetGuid == rage_blood) {
                                     activatable.IsOn = true;
-                                    break;
+                                    //break;
+                                }
+                            }
+                        }
+                        if (flag && settings.toggleEnterCombatAutoRage) {
+                            foreach (var activatable in unit.ActivatableAbilities) {
+                                if (activatable.Blueprint.AssetGuid == aeon_bane) {
+                                    activatable.IsOn = true;
+                                    //break;
                                 }
                             }
                         }
