@@ -373,3 +373,5 @@ lib/Assembly-CSharp_public.hash
 lib/Owlcat.Runtime.UI_public.hash
 *.dll~upstream_master
 *.hash~upstream_master
+*.dll~upstream_master_0
+*.hash~upstream_master_0
