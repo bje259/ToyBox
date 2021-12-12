@@ -375,3 +375,5 @@ lib/Owlcat.Runtime.UI_public.hash
 *.hash~upstream_master
 *.dll~upstream_master_0
 *.hash~upstream_master_0
+*.dll~upstream_master_1
+*.hash~upstream_master_1
